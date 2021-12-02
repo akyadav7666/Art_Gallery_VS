@@ -1,0 +1,174 @@
+﻿@model IEnumerable<Art_Gallery.Models.Tbl_CAR>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Arts</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Art
+            <a href="../Admin/AddArt" class="btn btn-info pull-right fa fa-plus">Add New</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                        
+                            <th>FullName</th>
+                            <th>Accepted</th>
+                            <th>Rejected</th>
+                            <th>ArtistName</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    @{ var counter = 0;}
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            counter = counter + 1;
+
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.CAR_FullName</td>
+                            <td>@Html.DisplayFor(modelItem => item.IsAccepted)</td>
+                            <td>@Html.DisplayFor(modelItem => item.IsAccepted)</td>
+                            <td>@item.Artist_Name</td>
+                            <td><img src="@Url.Content("~/Image/Art_Request/"+item.CAR_Image)" style="height:100px;width:100px;" /></td>
+                            <td>@item.CAR_Desc</td>
+
+                            <td>@item.CAR_Email</td>
+                            <td>@item.CAR_Phone</td>
+                            
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.CAR_Id, @class = "fa fa-user-edit" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.CAR_Id })
+                            </td>
+
+
+                        </tr>
+                        }
+
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>Sr. No.</th>
+
+                            <th>FullName</th>
+                            <th>Accepted</th>
+                            <th>Rejected</th>
+                            <th>ArtistName</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CAR_UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CAR_FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAccepted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsRejected)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Artist_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CAR_Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CAR_Desc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CAR_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CAR_Phone)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAR_UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAR_FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAccepted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsRejected)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Artist_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAR_Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAR_Desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAR_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAR_Phone)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CAR_Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CAR_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CAR_Id })
+            </td>
+        </tr>
+    }
+
+</table>*@

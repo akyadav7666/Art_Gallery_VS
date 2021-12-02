@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Art_Gallery.Models.Tbl_OrderDetail>
+
+@{
+    ViewBag.Title = "OrderDetails";
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+}
+
+<h2>OrderDetails</h2>
+
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Arts</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Art
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Order Id</th>
+                            <th>Art Id</th>
+                            <th>Unit Price</th>
+
+
+
+                        </tr>
+                    </thead>
+                    @{ var counter = 0;}
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            counter = counter + 1;
+
+                            <tr>
+                                <td>@counter</td>
+                                <td>@item.Order_Id</td>
+                                <td>@item.Art_Id</td>
+
+                                <td>@item.UnitPrice</td>
+
+
+
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Order Id</th>
+                            <th>Art Id</th>
+                            <th>Unit Price</th>
+
+
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

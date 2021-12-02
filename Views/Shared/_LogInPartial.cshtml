@@ -1,0 +1,81 @@
+﻿@using Art_Gallery.Models;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="~/Content/w3css.css" rel="stylesheet" />
+<link href="~/my/mdb-pro.min.css" rel="stylesheet" />
+<link href="~/my/mdb.ecommerce.min.css" rel="stylesheet" />
+@{
+
+    Art_GalleryEntities db = new Art_GalleryEntities();
+    var uid = Convert.ToInt32(Session["User_Id"]);
+    Tbl_User us = new Tbl_User();
+
+    var wishlistttt = db.Tbl_Wishlist.ToList()
+        .Where(x => x.User_Id == uid);
+    var WishCount = 0;
+
+    foreach (var item in wishlistttt)
+    {
+        WishCount = WishCount + 1;
+        ViewBag.Wish = WishCount;
+    }
+
+
+
+}
+@if (Session["User_Id"] != null)
+{
+    using (Html.BeginForm("Logoff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right " }))
+    {
+        @Html.AntiForgeryToken()
+        var userid = Convert.ToInt32(Session["User_Id"].ToString());
+        var username = db.Tbl_User.Where(m => m.User_Id == userid);
+        var FirstName = db.Tbl_User.Where(m => m.User_Id == userid);
+        var LastName = db.Tbl_User.Where(m => m.User_Id == userid);
+
+        var fname = db.Tbl_User.Find(userid).User_FirstName;
+        var lname = db.Tbl_User.Find(userid).User_LastName;
+        var uname = db.Tbl_User.Find(userid).UserName;
+
+        <ul class="nav navbar-nav navbar-right navbar-dark ">
+            <li class="form-group  " style="padding-top:0px">
+
+                <a href="@Url.Action("WishList", "Home")">
+                    <span class="badge badge-light">@WishCount</span><b class=" fa fa-heart dark-grey-text "> <span class="w3-sans-serif">WishList</span></b>
+                </a>
+
+
+            </li>
+
+            <li class="dark-grey-text ">
+
+                @*@Html.ActionLink("Hello " + uname + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "dark-grey-text" })*@
+            </li>
+
+            <li class="nav-item dropdown no-arrow dark-grey-text">
+                <a class="nav-link dropdown-toggle dark-grey-text w3-sans-serif" href="@Url.Action("Hello " + uname + "!", "Index", "Manage")" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hello @uname ! <i class="fa fa-user-circle dark-grey-text"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right " aria-labelledby="userDropdown">
+                    <a class="dropdown-item dark-grey-text " href="#"> @fname   &nbsp;@lname</a><br />
+
+                    <a class="dropdown-item dark-grey-text" href="@Url.Action("MyProfile","Manage",new { id=uid})">Profile</a>
+
+                    <div class="dropdown-divider"></div>
+                  
+                </div>
+            </li>
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="dark-grey-text w3-sans-serif">Log off</a>
+                @*@Html.ActionLink("Log Off", "LogOff", "Account");*@
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right ">
+        <li>@Html.ActionLink("Admin Login", "Admin_Login", "Admin", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "dark-grey-text" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "dark-grey-text" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "dark-grey-text" })</li>
+    </ul>
+}

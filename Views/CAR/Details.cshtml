@@ -1,0 +1,90 @@
+﻿@model Art_Gallery.Models.Tbl_CAR
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tbl_CAR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CAR_UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAR_UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAR_FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAR_FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAccepted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAccepted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRejected)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsRejected)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Artist_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artist_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAR_Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAR_Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAR_Desc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAR_Desc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAR_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAR_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAR_Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAR_Phone)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CAR_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

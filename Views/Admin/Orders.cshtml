@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Art_Gallery.Models.Tbl_Order>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Orders</h2>
+
+
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Arts</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Art
+           
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Username</th>
+                            <th>FullName</th>
+                            <th>Adress</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                           
+                            <th>Total Amt.</th>
+                            <th>Date</th>
+                            <th>Item Count</th>
+                            <th>PayMent Type</th>
+                            
+
+                        </tr>
+                    </thead>
+                    @{ var counter = 0;}
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            counter = counter + 1;
+
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.Order_Username</td>
+                            <td>@item.Order_FirstName @item.Order_LastName</td>
+                            <td>@item.Order_Address,@item.Order_City,@item.Order_State,@item.Order_Country,@item.Order_PostalCode</td>
+                            <td>@item.Order_Phone</td>
+                            <td>@item.Order_Email</td>
+
+                            <td>@item.Order_Total</td>
+                            <td>@item.Order_Date</td>
+                            <td>@item.ItemCount</td>
+                            <td>@item.PaymentType</td>
+                          
+                            
+
+
+                        </tr>
+                        }
+
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Username</th>
+                            <th>FullName</th>
+                            <th>Adress</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                         
+                            <th>Total Amt.</th>
+                            <th>Date</th>
+                            <th>Item Count</th>
+                            <th>PayMent Type</th>
+                            
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

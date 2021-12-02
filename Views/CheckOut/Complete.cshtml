@@ -1,0 +1,122 @@
+﻿@using Art_Gallery.Models;
+@model int
+
+@{
+    ViewBag.Title = "Complete";
+    Art_GalleryEntities db = new Art_GalleryEntities();
+    var uid = Session["User_Id"].ToString();
+    var orderid = Model;
+    var order = db.Tbl_Order.Where(ac => ac.Order_Id == orderid).SingleOrDefault();
+
+    var my = db.Tbl_OrderDetail.Where(ac => ac.Order_Id == orderid).ToList();
+
+}
+<h2>Your Order Is Has Been Placed!</h2>
+<p>Thanks for your order!. Your Order No.:@Model </p>
+<p>
+    How about shopping for some more Art Shopping in our
+    @Html.ActionLink("Home Page",
+"Index", "Home")
+</p>
+<hr class="row brc-default-l1 mx-n1 mb-4" />
+<div style="text-align:center">
+    <div class="w3-yellow w3-purple" style="background-color:black"></div>
+    <div class="center-block"><h3><b>Payment Reciept</b></h3></div>
+    <div class="w3-yellow"></div>
+</div>
+<hr class="row brc-default-l1 mx-n1 mb-4" />
+<div class="row">
+    <div class="col-sm-6">
+        <div>
+            <span class="text-sm text-grey-m2 align-middle">To:</span>
+            <span class="text-600 text-110 text-blue align-middle">@order.Order_FirstName  @order.Order_LastName</span>
+        </div>
+        <div class="text-grey-m2">
+            <div class="my-1">
+                @order.Order_Address
+            </div>
+            <div class="my-1">
+                @order.Order_PostalCode, @order.Order_City
+            </div>
+            <div class="my-1">
+                @order.Order_State, @order.Order_Country
+            </div>
+            <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">@order.Order_Phone</b></div>
+        </div>
+    </div>
+    <!-- /.col -->
+
+    <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+     
+        <div class="text-grey-m2">
+            <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
+                Invoice
+            </div>
+
+            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> @orderid</div>
+
+            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span>@order.Order_Date</div>
+            @if (order.PaymentType == "COD")
+            {
+
+
+                <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Payment Type:</span> <span class="badge badge-warning badge-pill px-25">@order.PaymentType</span></div>
+            }
+            else
+            {
+                <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Payment Type:</span> <span class="badge badge-warning badge-pill px-25">@order.PaymentType</span></div>
+            }
+        </div>
+    </div>
+    <!-- /.col -->
+</div>
+<hr class="row brc-default-l1 mx-n1 mb-4" />
+
+@foreach (var item in my)
+{
+    <div class="row mb-4" style="padding-top:20px">
+        <div class="col-md-5 col-lg-3 col-xl-3">
+            <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                @*<img class="img-fluid img-rounded view zoom " style="height:175px;width:150px"
+                    src="~/Image/Art/mcgill-library-y4PqRPqSako-unsplash.jpg" alt="Sample">*@
+
+                <img class="img-rounded zoom z-depth-4" src="~/Image/Art/@item.Tbl_Art.Art_Image" style="height:175px;width:265px " />
+
+            </div>
+        </div>
+        <div class="col-md-7 col-lg-9 col-xl-9">
+            <div>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>@item.Tbl_Art.Art_Name</h4>
+                        <b class="mb-3 text-muted text-uppercase small">@item.Tbl_Art.Artist_Name</b>
+                            <p class="mb-3 text-muted text-uppercase small">@item.Tbl_Art.Art_Desc</p>
+                            @*<p class="mb-2 text-muted text-uppercase small">Color: blue</p>*@
+
+                            @*@if (item.Tbl_Art.Tbl_User.User_FirstName != null)
+                            {
+                                <b class="mb-3 text-muted text-uppercase small">@item.Tbl_Art.Tbl_User.User_FirstName @item.Tbl_Art.Tbl_User.User_LastName</b>
+                            }*@
+
+
+
+                    </div>
+
+
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+
+
+                    </div>
+                    <br />
+                    <h3 class="mb-0 pull-right"><span><strong id="summary">$@item.UnitPrice</strong></span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+}
+
+<h2 class=" pull-right w3-text-black "><b>Total: </b>&nbsp;      &nbsp;<strong>$ @order.Order_Total</strong></h2>

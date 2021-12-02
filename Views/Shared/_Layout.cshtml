@@ -1,0 +1,173 @@
+﻿@using Art_Gallery.Models;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title </title>
+    @*@Styles.Render("~/Content/css")*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/MyMainLayOut.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Style/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script href="~/fonts/DeathCrowRegular-dBqx.ttf"></script>
+    <script src="~/fonts/Xandria-8Mzq2.ttf"></script>
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+    @{
+
+        var uid = Convert.ToInt32(Session["User_Id"]);
+        Art_GalleryEntities db = new Art_GalleryEntities();
+
+        Tbl_User us = new Tbl_User();
+
+        var cartitems = db.Tbl_Cart.ToList()
+            .Where(m => m.User_Id == uid);
+        var cartCount = 0;
+
+        foreach (var item in cartitems)
+        {
+            cartCount = cartCount + 1;
+            ViewBag.cartcount = cartCount;
+        }
+
+    }
+
+</head>
+<body>
+
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-5  " style="height:20px">
+                <div class="logo logo-wrapper">
+
+                    @*<h1>@Html.ActionLink("ART Gallery", "Index", "Home")</h1>*@
+                    
+                    @*<img src="~/Image/images.png" style="height:60px;width:60px"/>*@
+                    
+
+                    <h1 class=" fa fa-font-awesome-logo-full"><svg xmlns="http://www.w3.org/2000/svg" id="Capa_1" enable-background="new 0 0 497 497" height="40" viewBox="0 0 497 497" width="40"><g><path d="m456.09 245.37v208.53l-43.92 1.64-163.67 6.13-207.59-7.77v-208.53l207.59-7.5 163.67 5.91z" fill="#eaa998" /><path d="m129.363 237.875-40.776 7.5v22.709c0 3.606 2.923 6.529 6.529 6.529h6.791c2.813 0 5.093 2.28 5.093 5.093v174.2l22.363 4.11 22.64-4.11v-174.2c0-2.813 2.28-5.093 5.093-5.093h6.515c3.606 0 6.529-2.923 6.529-6.529v-22.709z" fill="#e49280" /><path d="m150.638 237.875-40.776 7.5v22.709c0 3.606 2.923 6.529 6.529 6.529h6.791c2.813 0 5.093 2.28 5.093 5.093v148.003l22.363 30.307 22.64-4.11v-174.2c0-2.813 2.28-5.093 5.093-5.093h6.515c3.606 0 6.529-2.923 6.529-6.529v-22.709z" fill="#fff3de" /><path d="m191.412 245.37v22.71c0 3.61-2.92 6.53-6.53 6.53h-6.51c-2.81 0-5.09 2.28-5.09 5.09v174.2l-21.42 3.9v-178.1c0-2.81 2.28-5.09 5.1-5.09h6.51c3.61 0 6.53-2.92 6.53-6.53v-26.65z" fill="#ffe5c2" /><path d="m324.811 237.875-40.776 7.5v22.709c0 3.606 2.923 6.529 6.529 6.529h6.791c2.813 0 5.093 2.28 5.093 5.093v174.2l22.363 4.11 22.64-4.11v-174.2c0-2.813 2.28-5.093 5.093-5.093h6.515c3.606 0 6.529-2.923 6.529-6.529v-22.709z" fill="#e49280" /><path d="m456.09 245.37v208.53l-43.92 1.64v-211.76z" fill="#e49280" /><path d="m31.708 240.367 31.708 5.007v208.531l-22.506 5.328-22.497-5.328v-174.112c0-2.861-2.32-5.181-5.181-5.181h-7.517c-3.156 0-5.715-2.559-5.715-5.715v-23.523z" fill="#fff3de" /><path d="m63.42 245.37v208.53l-22.51 5.33v-217.41z" fill="#ffe5c2" /><path d="m465.292 240.367-31.708 5.007v208.531l22.506 5.328 22.497-5.328v-174.112c0-2.861 2.32-5.181 5.181-5.181h7.517c3.156 0 5.715-2.559 5.715-5.715v-23.523z" fill="#fff3de" /><path d="m497 245.37v23.53c0 3.15-2.56 5.71-5.71 5.71h-7.52c-2.86 0-5.18 2.32-5.18 5.18v174.11l-21.42 5.07v-179.18c0-2.86 2.32-5.18 5.18-5.18h7.52c3.16 0 5.72-2.56 5.72-5.71v-26.91z" fill="#ffe5c2" /><path d="m347.313 245.374h21.413v208.53h-21.413z" fill="#ffe5c2" /><path d="m290.06 341.85v69.09l-41.56 7.5-41.56-7.5v-69.09c0-20.4 14.69-37.37 34.06-40.89 2.43-.45 4.94-.68 7.5-.68s5.07.23 7.5.68c8.47 1.54 16.04 5.65 21.89 11.5 7.52 7.52 12.17 17.91 12.17 29.39z" fill="#aca6d6" /><path d="m248.5 300.283c-3.703 0-7.29.491-10.706 1.399 17.765 4.724 30.857 20.912 30.857 40.164v69.097l4.804 2.994 16.608-2.994v-69.097c0-22.955-18.608-41.563-41.563-41.563z" fill="#978ecb" /><path d="m346.086 237.875-40.776 7.5v22.709c0 3.606 2.923 6.529 6.529 6.529h6.791c2.813 0 5.093 2.28 5.093 5.093v174.2l22.363 4.11 22.64-30.307v-148.003c0-2.813 2.28-5.093 5.093-5.093h6.515c3.606 0 6.529-2.923 6.529-6.529v-22.709z" fill="#fff3de" /><path d="m386.86 245.37v22.71c0 3.61-2.92 6.53-6.53 6.53h-6.51c-2.81 0-5.09 2.28-5.09 5.09l-.004 148.008-21.416 30.092v-178.1c0-2.81 2.28-5.09 5.1-5.09h6.51c3.61 0 6.53-2.92 6.53-6.53v-26.65z" fill="#ffe5c2" /><path d="m248.5 272.425c-4.143 0-7.5-3.358-7.5-7.5v-19.551c0-4.142 3.357-7.5 7.5-7.5s7.5 3.358 7.5 7.5v19.551c0 4.142-3.357 7.5-7.5 7.5z" fill="#ffe5c2" /><path d="m256 300.96v109.98c0 4.14-3.36 7.5-7.5 7.5s-7.5-3.36-7.5-7.5v-109.98c2.43-.45 4.94-.68 7.5-.68s5.07.23 7.5.68z" fill="#978ecb" /><path d="m491.285 491.908h-84.304l-158.481-6.02-158.481 6.021h-84.304c-3.156 0-5.715-2.559-5.715-5.715v-26.574c0-3.156 2.559-5.715 5.715-5.715h84.304l158.481 5.328 158.481-5.328h84.304c3.156 0 5.715 2.559 5.715 5.715v26.574c0 3.155-2.559 5.714-5.715 5.714z" fill="#fed2a4" /><path d="m491.285 453.905h-21.413c3.156 0 5.715 2.559 5.715 5.715v26.574c0 3.156-2.559 5.715-5.715 5.715h21.413c3.156 0 5.715-2.558 5.715-5.715v-26.574c0-3.157-2.559-5.715-5.715-5.715z" fill="#ffbd86" /><path d="m351.961 410.943h-206.922c-9.259 0-16.765 7.506-16.765 16.765v26.197l120.226 5.328 120.226-5.328v-26.197c0-9.259-7.506-16.765-16.765-16.765z" fill="#b6c4cf" /><path d="m351.961 410.943h-21.413c9.259 0 16.765 7.506 16.765 16.765v26.197l2.839.823 18.574-.823v-26.197c0-9.259-7.506-16.765-16.765-16.765z" fill="#9facba" /><path d="m90.019 453.905h316.963v38.003h-316.963z" fill="#9facba" /><path d="m385.569 453.905h21.413v38.003h-21.413z" fill="#8d9ca8" /><path d="m18.413 142.103h460.175v82.249h-460.175z" fill="#ffe5c2" /><path d="m457.175 142.103h21.413v82.249h-21.413z" fill="#fed2a4" /><path d="m476.841 77.005-186.692-64.882c-26.975-9.375-56.323-9.375-83.298 0l-186.692 64.882c-12.069 4.194-20.159 15.57-20.159 28.347v40.728c0 3.156 2.559 5.715 5.715 5.715h485.571c3.156 0 5.715-2.559 5.715-5.715v-40.728c-.001-12.777-8.091-24.153-20.16-28.347z" fill="#fff3de" /><path d="m497 105.35v40.73c0 3.16-2.56 5.72-5.71 5.72h-21.42c3.16 0 5.72-2.56 5.72-5.72v-40.73c0-19.57-15.12-34.04-27.19-38.23l28.44 9.88c12.07 4.2 20.16 15.58 20.16 28.35z" fill="#ffe5c2" /><path d="m72.853 106.795c-3.202 0-3.889-4.509-.833-5.463l149.603-46.702c8.663-3.011 17.706-4.537 26.877-4.537s18.214 1.526 26.878 4.537l149.603 46.703c3.056.954 2.369 5.463-.833 5.463h-351.295z" fill="#fed2a4" /><path d="m424.15 106.8h-34.92c3.21 0 3.89-4.51.84-5.47l-149.61-46.7c-3.09-1.08-6.23-1.96-9.41-2.65 5.72-1.26 11.56-1.89 17.45-1.89 9.17 0 18.21 1.53 26.88 4.54l149.6 46.7c3.06.96 2.37 5.47-.83 5.47z" fill="#ffbd86" /><path d="m314.516 191.52h-132.032c-4.143 0-7.5-3.358-7.5-7.5s3.357-7.5 7.5-7.5h132.031c4.143 0 7.5 3.358 7.5 7.5s-3.357 7.5-7.499 7.5z" fill="#aca6d6" /><path d="m491.285 214.66h-485.57c-3.156 0-5.715 2.559-5.715 5.715v25h497v-25c0-3.157-2.559-5.715-5.715-5.715z" fill="#fed2a4" /><path d="m491.285 214.66h-21.413c3.156 0 5.715 2.558 5.715 5.715v25h21.413v-25c0-3.157-2.559-5.715-5.715-5.715z" fill="#ffbd86" /></g></svg>
+                    Art Gallery
+                    </h1>
+                        
+
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-6">
+
+
+
+
+
+
+                <ul class="nav navbar-nav navbar-right">
+
+
+
+                    <li class="dropdown ">
+                        <a data-toggle="dropdown" class="dropdown-toggle  dark-grey-text " href="#"><span class="badge badge-light">@ViewBag.cartcount</span> <b class="w3-large fa fa-shopping-cart "><b class="caret"></b></b></a>
+                        <ul class="dropdown-menu">
+
+
+
+                            @if (Session["User_Id"] != null)
+                            {
+                                foreach (var item in cartitems)
+                                {
+                                    <li>
+                                        @*<a href="@Url.Action("RemoveFromCart", "ShoppingCart", new { id=item.Record_Id,@class="trash"})">@item.Tbl_Art.Art_Name  <i class="fa fa-trash">&nbsp;</i></a>*@
+                                        <a class="w3-sans-serif">@item.Tbl_Art.Art_Name</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                }
+                            }
+
+
+                            <li><a href="@Url.Action("Index","ShoppingCart")" class="w3-sans-serif">Show Cart </a></li>
+                        </ul>
+                    </li>
+
+                    @Html.Partial("_LogInPartial")
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="nav-menus">
+
+                    <ul class="nav nav-pills">
+                        <li class="w3-sans-serif">@Html.ActionLink("Home", "Index", "Home")</li>
+
+
+                        <li class="w3-sans-serif">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li class="w3-sans-serif">@Html.ActionLink("About", "About", "Home")</li>
+                        <li class="w3-sans-serif">@Html.ActionLink("Art Request","ArtRequest","Home")</li>
+                        <li class="w3-sans-serif">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="w3-sans-serif">Other</span>
+                                
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                                <a style="padding-inline-start:10px" class="dropdown-item w3-sans-serif w3-text-black align-self-sm-center" href="@Url.Action("Feedback","Manage")">Feedback</a><br />
+                                <a style="padding-inline-start:10px" class="dropdown-item w3-sans-serif w3-text-black" href="@Url.Action("Report","Manage")">Report</a>
+                                
+                              
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        <hr />
+        
+       
+
+        @RenderBody()
+
+      
+      
+      
+         <footer style="overflow: hidden; position: inherit; bottom: 0;width:1150px">
+             <hr />
+            <div class="row ">
+                <div class="col-md-12 copyright">
+
+                    <div class="col-md-6 col-sm-6 copyright-left">
+                        <p>&copy; @DateTime.Now.Year - Art Gallery. All right reserved.</p>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 copyright-right">
+
+                        <ul class="list-unstyled list-social">
+                            <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                
+        </footer>
+     
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

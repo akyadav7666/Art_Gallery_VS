@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dbb57161abe74c7fa0531c5fdec41e56" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_Category" Width="1.5" PointX="3.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_User" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_Art" Width="1.5" PointX="7.875" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_Art__Categor__4AB81AF0" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_Wishlist" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_Wishl__Art_I__3C34F16F" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_Wishl__User___3D2915A8" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_Cart" Width="1.5" PointX="6.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_Order" Width="1.5" PointX="3.875" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_OrderDetail" Width="1.5" PointX="5.75" PointY="12.625" IsExpanded="true" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_Cart__Art_Id__7755B73D" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_Order__Art_I__7FEAFD3E" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_Cart__User_I__7849DB76" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_Order__Order__7EF6D905" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_CAR" Width="1.5" PointX="1.875" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_Roles" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_UserRole" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_UserR__RoleI__41B8C09B" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_UserR__User___1B9317B3" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_Admin" Width="1.5" PointX="10.125" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_CAR__Artist___65F62111" />
+        <AssociationConnector Association="Art_GalleryModel.FK__Tbl_Art__User_Id__7908F585" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_Feedback" Width="1.5" PointX="9.875" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Art_GalleryModel.Tbl_Report" Width="1.5" PointX="9.375" PointY="5.375" IsExpanded="true" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

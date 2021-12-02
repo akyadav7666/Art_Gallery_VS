@@ -1,0 +1,89 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Art_Gallery.Models.Tbl_Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+  
+}
+
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Categories</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Category Details
+            <a href="../Admin/CreateCategory" class="btn btn-info pull-right fa fa-plus">Add New</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Category Name</th>
+                            <th>Category Image</th>
+                            <th>Category Status</th>
+                            
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    @{ var counter = 0;}
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            counter = counter + 1;
+
+                            <tr>
+                                <td>@counter</td>
+
+                                <td>@item.Category_Name</td>
+                                <td><img src="@Url.Content(item.Category_Image)" style="height:100px;width:100px;" /></td>
+                                <td>@item.Category_Status</td>
+                                @*<td>@item.Admin.AD_Username</td>*@
+                                <td>
+                                    <span class="fa fa-user-edit"></span> @Html.ActionLink("Edit", "EditCategory", new { id = item.Category_Id }) |
+                                    <span class="fa fa-trash "></span> @Html.ActionLink("Delete", "DeleteCategory", new { id = item.Category_Id })
+                                </td>
+
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Category Name</th>
+                            <th>Category Image</th>
+                            <th>Category Status</th>
+                            
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="container" style="margin-left:20px">
+    <p></p>
+    <p></p>
+    <div class="pagination" style="margin-left:400px">
+        @Html.PagedListPager(Model, page => Url.Action("ViewCategory", new { page }))
+    </div>
+</div>

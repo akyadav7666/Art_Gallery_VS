@@ -1,0 +1,72 @@
+﻿@model Art_Gallery.Models.Tbl_Report
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete Report</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal" style="padding-left:20px">
+        <dt>
+            @Html.DisplayName("Name:-") @Html.DisplayFor(model => model.R_Name)
+        </dt>
+
+
+
+        <dt>
+            @Html.DisplayName("Phone:-")
+        
+            @Html.DisplayFor(model => model.R_Phone)
+       
+        </dt>
+
+
+
+        <dt>
+            @Html.DisplayName("Email:-")   @Html.DisplayFor(model => model.R_Email)
+        </dt>
+
+        <dd>
+           
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Subject:- ")   @Html.DisplayFor(model => model.R_Subject)
+        </dt>
+
+        <dd>
+           
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Image:-     ")  <img src="@Url.Content("~/Image/Report/"+Model.R_File)" style="height:100px;width:100px;" />
+        </dt>
+
+        <dd>
+           
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Description:-")  @Html.DisplayFor(model => model.R_Dsc)
+        </dt>
+
+        <dd>
+           
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

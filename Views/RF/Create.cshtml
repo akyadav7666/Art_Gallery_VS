@@ -1,0 +1,88 @@
+﻿@model Art_Gallery.Models.Tbl_Feedback
+
+@{
+    ViewBag.Title = "Feedback";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Feedback</h2>
+<p>We would love to hear your thoughts, suggestions, concerns or problems with anything so we can improve!</p>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <label class="control-label col-md-2 w3-large">Feedback Type</label>
+    <div class="form-group">
+
+        <div class="col-md-10" style="margin-left:200px">
+
+            @Html.RadioButtonFor(model => model.F_Type, "Comments")  <span style="margin-left:10px;margin-right:10px">  Comments</span>
+
+            @Html.RadioButtonFor(model => model.F_Type, "Suggestions")<span style="margin-left:10px;margin-right:10px">
+                Suggestions</span>
+
+            @Html.RadioButtonFor(model => model.F_Type, "Questions")<span style="margin-left:10px"> Questions</span>
+
+
+
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <label class="control-label ">Describe Your Feedback:</label>
+        <div class="col-md-12" style="margin-left:200px">
+            @Html.TextAreaFor(model => model.F_DYF, new { htmlAttributes = new { @class = "form-control col-md-10",@style="heigth:261px;width:100%" } })
+            @Html.ValidationMessageFor(model => model.F_DYF, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("First Nmae", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.F_FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.F_FirstName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Last Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.F_LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.F_LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Phone", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.F_Phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.F_Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.F_Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.F_Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Send" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    }
+
+

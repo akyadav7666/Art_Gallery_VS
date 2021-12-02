@@ -1,0 +1,99 @@
+﻿
+
+@model IEnumerable<Art_Gallery.Models.Tbl_Wishlist>
+@using Art_Gallery.Models;
+
+@{
+    ViewBag.Title = "WishList";
+}
+
+<link href="~/Content/w3css.css" rel="stylesheet" />
+<link href="~/my/mdb-pro.min.css" rel="stylesheet" />
+<link href="~/my/mdb.ecommerce.min.css" rel="stylesheet" />
+@{
+    var uid = Convert.ToInt32(Session["User_Id"]);
+    Art_GalleryEntities db = new Art_GalleryEntities();
+
+    Tbl_User us = new Tbl_User();
+
+    var wishitems = db.Tbl_Wishlist.ToList()
+        .Where(m => m.User_Id == uid);
+    var wishCount = 0;
+
+    foreach (var item in wishitems)
+    {
+        wishCount = wishCount + 1;
+        ViewBag.wishcount = wishCount;
+    }
+
+}
+
+<div class="row product-container">
+
+
+    @foreach (var item in wishitems)
+    {
+        <div class="col-md-3 col-sm-3 col-xs-6" style="margin:15px">
+            <div class="product-item" style="height:450px">
+
+              
+
+
+                <div class="view zoom brighten z-depth-2  img-rounded" style="">
+                    <img class="img-fluid img-rounded" title="Click to View Product detail"
+                         style="cursor:pointer;height:250px;width:300px"
+                         src="~/Image/Art/@item.Tbl_Art.Art_Image" />
+
+
+                </div>
+                <div class="caption" style="text-align:center">
+                    <h5>@item.Tbl_Art.Art_Name</h5>
+                    <b class="mb-3 text-muted text-uppercase small">@item.Tbl_Art.Artist_Name</b>
+                        <p class="product-item-price slider-price">$@item.Tbl_Art.Art_Price.00</p>
+                        <p class="pull-left">
+                            @if (item.Art_Id > 0)
+                            {
+                                using (Html.BeginForm("RemoveFromWishList", "Home", new { id = item.WishList_Id, url = "WishList" }, FormMethod.Post))
+                                {
+
+
+
+                                    <button type="submit" class="btn btn-danger  btn-sm px-3 mb-2 material-tooltip-main waves-effect waves-light  pull-right"><b class="glyphicon glyphicon-trash  "></b></button>
+
+
+                                }
+
+                            }
+                        </p>
+                        <p>
+                            @if (item.Art_Id > 0)
+                            {
+                                using (Html.BeginForm("AddToCart", "Home", new { productId = item.Art_Id, url = "Index" }, FormMethod.Post))
+                                {
+                                    <button type="submit" class="pull-right btn btn-primary btn-sm mr-1 mb-2 waves-effect waves-light" style="width:100%">Add To Cart&nbsp;&nbsp;<b class=" fa fa-shopping-cart  "></b></button>
+                                }
+
+                            }
+                            else
+                            {
+                            <p>Not Available</p>
+                        }
+
+                            <div class="product-item-badge">
+                                @if (item.Tbl_Art.IsFeatured == true)
+                                {
+                                    <p>New</p>
+
+                                }
+                                else
+                                {
+                                    <p>Old</p>
+                                }
+                            </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+</div>

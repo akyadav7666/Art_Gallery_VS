@@ -1,0 +1,929 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Art_GalleryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Admin">
+          <Key>
+            <PropertyRef Name="Admin_Id" />
+          </Key>
+          <Property Name="Admin_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Admin_Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_Art">
+          <Key>
+            <PropertyRef Name="Art_Id" />
+          </Key>
+          <Property Name="Art_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Art_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Art_Desc" Type="nvarchar(max)" />
+          <Property Name="Art_Image" Type="nvarchar(max)" />
+          <Property Name="Art_Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="Category_Id" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="IsFeatured" Type="bit" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="Artist_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsSold" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tbl_CAR">
+          <Key>
+            <PropertyRef Name="CAR_Id" />
+          </Key>
+          <Property Name="CAR_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CAR_UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CAR_FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsAccepted" Type="bit" />
+          <Property Name="IsRejected" Type="bit" />
+          <Property Name="Artist_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CAR_Image" Type="nvarchar(max)" />
+          <Property Name="CAR_Desc" Type="nvarchar(max)" />
+          <Property Name="CAR_Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="CAR_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Artist_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cart">
+          <Key>
+            <PropertyRef Name="Record_Id" />
+          </Key>
+          <Property Name="Record_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cart_Id" Type="nvarchar" MaxLength="50" />
+          <Property Name="Art_Id" Type="int" />
+          <Property Name="Cart_Count" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="User_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Category">
+          <Key>
+            <PropertyRef Name="Category_Id" />
+          </Key>
+          <Property Name="Category_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Category_Image" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="Admin_Id" Type="int" />
+          <Property Name="Category_Status" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Feedback">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="F_DYF" Type="nvarchar(max)" />
+          <Property Name="F_FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="F_LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="F_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="F_Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="F_UserName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_Order">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order_Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_Address" Type="nvarchar(max)" />
+          <Property Name="Order_City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_PostalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_Total" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Order_Date" Type="datetime" />
+          <Property Name="ItemCount" Type="int" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetail_Id" />
+          </Key>
+          <Property Name="OrderDetail_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order_Id" Type="int" />
+          <Property Name="Art_Id" Type="int" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Tbl_Report">
+          <Key>
+            <PropertyRef Name="R_Id" />
+          </Key>
+          <Property Name="R_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="R_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="R_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="R_Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="R_Subject" Type="nvarchar(max)" />
+          <Property Name="R_File" Type="nvarchar(max)" />
+          <Property Name="R_Dsc" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_Image" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_LastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Wishlist">
+          <Key>
+            <PropertyRef Name="WishList_Id" />
+          </Key>
+          <Property Name="WishList_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Art_Id" Type="int" />
+          <Property Name="User_Id" Type="int" />
+        </EntityType>
+        <Association Name="FK__Tbl_Art__Categor__5DCAEF64">
+          <End Role="Tbl_Category" Type="Self.Tbl_Category" Multiplicity="0..1" />
+          <End Role="Tbl_Art" Type="Self.Tbl_Art" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Category">
+              <PropertyRef Name="Category_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Art">
+              <PropertyRef Name="Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Art__User_Id__7908F585">
+          <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="0..1" />
+          <End Role="Tbl_Art" Type="Self.Tbl_Art" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Art">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_CAR__Artist___65F62111">
+          <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="0..1" />
+          <End Role="Tbl_CAR" Type="Self.Tbl_CAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_CAR">
+              <PropertyRef Name="Artist_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Cart__Art_Id__7755B73D">
+          <End Role="Tbl_Art" Type="Self.Tbl_Art" Multiplicity="0..1" />
+          <End Role="Tbl_Cart" Type="Self.Tbl_Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Art">
+              <PropertyRef Name="Art_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Cart">
+              <PropertyRef Name="Art_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Cart__User_I__7849DB76">
+          <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="0..1" />
+          <End Role="Tbl_Cart" Type="Self.Tbl_Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Cart">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Order__Art_I__7FEAFD3E">
+          <End Role="Tbl_Art" Type="Self.Tbl_Art" Multiplicity="0..1" />
+          <End Role="Tbl_OrderDetail" Type="Self.Tbl_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Art">
+              <PropertyRef Name="Art_Id" />
+            </Principal>
+            <Dependent Role="Tbl_OrderDetail">
+              <PropertyRef Name="Art_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Order__Order__7EF6D905">
+          <End Role="Tbl_Order" Type="Self.Tbl_Order" Multiplicity="0..1" />
+          <End Role="Tbl_OrderDetail" Type="Self.Tbl_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Order">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Tbl_OrderDetail">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_UserR__RoleI__41B8C09B">
+          <End Role="Tbl_Roles" Type="Self.Tbl_Roles" Multiplicity="0..1" />
+          <End Role="Tbl_UserRole" Type="Self.Tbl_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tbl_UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_UserR__User___1B9317B3">
+          <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="0..1" />
+          <End Role="Tbl_UserRole" Type="Self.Tbl_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_UserRole">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Wishl__Art_I__681373AD">
+          <End Role="Tbl_Art" Type="Self.Tbl_Art" Multiplicity="0..1" />
+          <End Role="Tbl_Wishlist" Type="Self.Tbl_Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Art">
+              <PropertyRef Name="Art_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Wishlist">
+              <PropertyRef Name="Art_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Wishl__User___690797E6">
+          <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="0..1" />
+          <End Role="Tbl_Wishlist" Type="Self.Tbl_Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Wishlist">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Art_GalleryModelStoreContainer">
+          <EntitySet Name="Tbl_Admin" EntityType="Self.Tbl_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Art" EntityType="Self.Tbl_Art" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_CAR" EntityType="Self.Tbl_CAR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cart" EntityType="Self.Tbl_Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Category" EntityType="Self.Tbl_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Feedback" EntityType="Self.Tbl_Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Order" EntityType="Self.Tbl_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_OrderDetail" EntityType="Self.Tbl_OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Report" EntityType="Self.Tbl_Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Roles" EntityType="Self.Tbl_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_User" EntityType="Self.Tbl_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_UserRole" EntityType="Self.Tbl_UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Wishlist" EntityType="Self.Tbl_Wishlist" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Tbl_Art__Categor__5DCAEF64" Association="Self.FK__Tbl_Art__Categor__5DCAEF64">
+            <End Role="Tbl_Category" EntitySet="Tbl_Category" />
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Art__User_Id__7908F585" Association="Self.FK__Tbl_Art__User_Id__7908F585">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_CAR__Artist___65F62111" Association="Self.FK__Tbl_CAR__Artist___65F62111">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_CAR" EntitySet="Tbl_CAR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Cart__Art_Id__7755B73D" Association="Self.FK__Tbl_Cart__Art_Id__7755B73D">
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+            <End Role="Tbl_Cart" EntitySet="Tbl_Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Cart__User_I__7849DB76" Association="Self.FK__Tbl_Cart__User_I__7849DB76">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_Cart" EntitySet="Tbl_Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Order__Art_I__7FEAFD3E" Association="Self.FK__Tbl_Order__Art_I__7FEAFD3E">
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+            <End Role="Tbl_OrderDetail" EntitySet="Tbl_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Order__Order__7EF6D905" Association="Self.FK__Tbl_Order__Order__7EF6D905">
+            <End Role="Tbl_Order" EntitySet="Tbl_Order" />
+            <End Role="Tbl_OrderDetail" EntitySet="Tbl_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_UserR__RoleI__41B8C09B" Association="Self.FK__Tbl_UserR__RoleI__41B8C09B">
+            <End Role="Tbl_Roles" EntitySet="Tbl_Roles" />
+            <End Role="Tbl_UserRole" EntitySet="Tbl_UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_UserR__User___1B9317B3" Association="Self.FK__Tbl_UserR__User___1B9317B3">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_UserRole" EntitySet="Tbl_UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Wishl__Art_I__681373AD" Association="Self.FK__Tbl_Wishl__Art_I__681373AD">
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+            <End Role="Tbl_Wishlist" EntitySet="Tbl_Wishlist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Wishl__User___690797E6" Association="Self.FK__Tbl_Wishl__User___690797E6">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_Wishlist" EntitySet="Tbl_Wishlist" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Art_GalleryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_Category">
+          <Key>
+            <PropertyRef Name="Category_Id" />
+          </Key>
+          <Property Name="Category_Id" Type="Int32" Nullable="false" />
+          <Property Name="Category_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Category_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="Admin_Id" Type="Int32" />
+          <NavigationProperty Name="Tbl_Art" Relationship="Art_GalleryModel.FK__Tbl_Art__Categor__4AB81AF0" FromRole="Tbl_Category" ToRole="Tbl_Art" />
+          <Property Name="Category_Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="User_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_Wishlist" Relationship="Art_GalleryModel.FK__Tbl_Wishl__User___3D2915A8" FromRole="Tbl_User" ToRole="Tbl_Wishlist" />
+          <NavigationProperty Name="Tbl_Cart" Relationship="Art_GalleryModel.FK__Tbl_Cart__User_I__7849DB76" FromRole="Tbl_User" ToRole="Tbl_Cart" />
+          <NavigationProperty Name="Tbl_UserRole" Relationship="Art_GalleryModel.FK__Tbl_UserR__User___1B9317B3" FromRole="Tbl_User" ToRole="Tbl_UserRole" />
+          <NavigationProperty Name="Tbl_CAR" Relationship="Art_GalleryModel.FK__Tbl_CAR__Artist___65F62111" FromRole="Tbl_User" ToRole="Tbl_CAR" />
+          <NavigationProperty Name="Tbl_Art" Relationship="Art_GalleryModel.FK__Tbl_Art__User_Id__7908F585" FromRole="Tbl_User" ToRole="Tbl_Art" />
+        </EntityType>
+        <EntityContainer Name="Art_GalleryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Category" EntityType="Self.Tbl_Category" />
+          <EntitySet Name="Tbl_User" EntityType="Self.Tbl_User" />
+          <EntitySet Name="Tbl_Art" EntityType="Art_GalleryModel.Tbl_Art" />
+          <AssociationSet Name="FK__Tbl_Art__Categor__4AB81AF0" Association="Art_GalleryModel.FK__Tbl_Art__Categor__4AB81AF0">
+            <End Role="Tbl_Category" EntitySet="Tbl_Category" />
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_Wishlist" EntityType="Art_GalleryModel.Tbl_Wishlist" />
+          <AssociationSet Name="FK__Tbl_Wishl__Art_I__3C34F16F" Association="Art_GalleryModel.FK__Tbl_Wishl__Art_I__3C34F16F">
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+            <End Role="Tbl_Wishlist" EntitySet="Tbl_Wishlist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Wishl__User___3D2915A8" Association="Art_GalleryModel.FK__Tbl_Wishl__User___3D2915A8">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_Wishlist" EntitySet="Tbl_Wishlist" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_Cart" EntityType="Art_GalleryModel.Tbl_Cart" />
+          <EntitySet Name="Tbl_Order" EntityType="Art_GalleryModel.Tbl_Order" />
+          <EntitySet Name="Tbl_OrderDetail" EntityType="Art_GalleryModel.Tbl_OrderDetail" />
+          <AssociationSet Name="FK__Tbl_Cart__Art_Id__7755B73D" Association="Art_GalleryModel.FK__Tbl_Cart__Art_Id__7755B73D">
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+            <End Role="Tbl_Cart" EntitySet="Tbl_Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Order__Art_I__7FEAFD3E" Association="Art_GalleryModel.FK__Tbl_Order__Art_I__7FEAFD3E">
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+            <End Role="Tbl_OrderDetail" EntitySet="Tbl_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Cart__User_I__7849DB76" Association="Art_GalleryModel.FK__Tbl_Cart__User_I__7849DB76">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_Cart" EntitySet="Tbl_Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Order__Order__7EF6D905" Association="Art_GalleryModel.FK__Tbl_Order__Order__7EF6D905">
+            <End Role="Tbl_Order" EntitySet="Tbl_Order" />
+            <End Role="Tbl_OrderDetail" EntitySet="Tbl_OrderDetail" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_CAR" EntityType="Art_GalleryModel.Tbl_CAR" />
+          <EntitySet Name="Tbl_Roles" EntityType="Art_GalleryModel.Tbl_Roles" />
+          <EntitySet Name="Tbl_UserRole" EntityType="Art_GalleryModel.Tbl_UserRole" />
+          <AssociationSet Name="FK__Tbl_UserR__RoleI__41B8C09B" Association="Art_GalleryModel.FK__Tbl_UserR__RoleI__41B8C09B">
+            <End Role="Tbl_Roles" EntitySet="Tbl_Roles" />
+            <End Role="Tbl_UserRole" EntitySet="Tbl_UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_UserR__User___1B9317B3" Association="Art_GalleryModel.FK__Tbl_UserR__User___1B9317B3">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_UserRole" EntitySet="Tbl_UserRole" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_Admin" EntityType="Art_GalleryModel.Tbl_Admin" />
+          <AssociationSet Name="FK__Tbl_CAR__Artist___65F62111" Association="Art_GalleryModel.FK__Tbl_CAR__Artist___65F62111">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_CAR" EntitySet="Tbl_CAR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Art__User_Id__7908F585" Association="Art_GalleryModel.FK__Tbl_Art__User_Id__7908F585">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_Art" EntitySet="Tbl_Art" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_Feedback" EntityType="Art_GalleryModel.Tbl_Feedback" />
+          <EntitySet Name="Tbl_Report" EntityType="Art_GalleryModel.Tbl_Report" />
+          </EntityContainer>
+        <EntityType Name="Tbl_Art">
+          <Key>
+            <PropertyRef Name="Art_Id" />
+          </Key>
+          <Property Name="Art_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Art_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Art_Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Art_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Art_Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="Category_Id" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsFeatured" Type="Boolean" />
+          <NavigationProperty Name="Tbl_Category" Relationship="Art_GalleryModel.FK__Tbl_Art__Categor__4AB81AF0" FromRole="Tbl_Art" ToRole="Tbl_Category" />
+          <NavigationProperty Name="Tbl_Wishlist" Relationship="Art_GalleryModel.FK__Tbl_Wishl__Art_I__3C34F16F" FromRole="Tbl_Art" ToRole="Tbl_Wishlist" />
+          <NavigationProperty Name="Tbl_Cart" Relationship="Art_GalleryModel.FK__Tbl_Cart__Art_Id__7755B73D" FromRole="Tbl_Art" ToRole="Tbl_Cart" />
+          <NavigationProperty Name="Tbl_OrderDetail" Relationship="Art_GalleryModel.FK__Tbl_Order__Art_I__7FEAFD3E" FromRole="Tbl_Art" ToRole="Tbl_OrderDetail" />
+          <Property Name="User_Id" Type="Int32" />
+          <NavigationProperty Name="Tbl_User" Relationship="Art_GalleryModel.FK__Tbl_Art__User_Id__7908F585" FromRole="Tbl_Art" ToRole="Tbl_User" />
+          <Property Name="Artist_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsSold" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK__Tbl_Art__Categor__4AB81AF0">
+          <End Type="Art_GalleryModel.Tbl_Category" Role="Tbl_Category" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_Art" Role="Tbl_Art" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Category">
+              <PropertyRef Name="Category_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Art">
+              <PropertyRef Name="Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_Wishlist">
+          <Key>
+            <PropertyRef Name="WishList_Id" />
+          </Key>
+          <Property Name="WishList_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Art_Id" Type="Int32" />
+          <Property Name="User_Id" Type="Int32" />
+          <NavigationProperty Name="Tbl_Art" Relationship="Art_GalleryModel.FK__Tbl_Wishl__Art_I__3C34F16F" FromRole="Tbl_Wishlist" ToRole="Tbl_Art" />
+          <NavigationProperty Name="Tbl_User" Relationship="Art_GalleryModel.FK__Tbl_Wishl__User___3D2915A8" FromRole="Tbl_Wishlist" ToRole="Tbl_User" />
+        </EntityType>
+        <Association Name="FK__Tbl_Wishl__Art_I__3C34F16F">
+          <End Type="Art_GalleryModel.Tbl_Art" Role="Tbl_Art" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_Wishlist" Role="Tbl_Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Art">
+              <PropertyRef Name="Art_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Wishlist">
+              <PropertyRef Name="Art_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Wishl__User___3D2915A8">
+          <End Type="Art_GalleryModel.Tbl_User" Role="Tbl_User" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_Wishlist" Role="Tbl_Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Wishlist">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_Cart">
+          <Key>
+            <PropertyRef Name="Record_Id" />
+          </Key>
+          <Property Name="Record_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cart_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Art_Id" Type="Int32" />
+          <Property Name="Cart_Count" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="User_Id" Type="Int32" />
+          <NavigationProperty Name="Tbl_Art" Relationship="Art_GalleryModel.FK__Tbl_Cart__Art_Id__7755B73D" FromRole="Tbl_Cart" ToRole="Tbl_Art" />
+          <NavigationProperty Name="Tbl_User" Relationship="Art_GalleryModel.FK__Tbl_Cart__User_I__7849DB76" FromRole="Tbl_Cart" ToRole="Tbl_User" />
+        </EntityType>
+        <EntityType Name="Tbl_Order">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Order_City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_Total" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Order_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tbl_OrderDetail" Relationship="Art_GalleryModel.FK__Tbl_Order__Order__7EF6D905" FromRole="Tbl_Order" ToRole="Tbl_OrderDetail" />
+          <Property Name="ItemCount" Type="Int32" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetail_Id" />
+          </Key>
+          <Property Name="OrderDetail_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_Id" Type="Int32" />
+          <Property Name="Art_Id" Type="Int32" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Tbl_Art" Relationship="Art_GalleryModel.FK__Tbl_Order__Art_I__7FEAFD3E" FromRole="Tbl_OrderDetail" ToRole="Tbl_Art" />
+          <NavigationProperty Name="Tbl_Order" Relationship="Art_GalleryModel.FK__Tbl_Order__Order__7EF6D905" FromRole="Tbl_OrderDetail" ToRole="Tbl_Order" />
+        </EntityType>
+        <Association Name="FK__Tbl_Cart__Art_Id__7755B73D">
+          <End Type="Art_GalleryModel.Tbl_Art" Role="Tbl_Art" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_Cart" Role="Tbl_Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Art">
+              <PropertyRef Name="Art_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Cart">
+              <PropertyRef Name="Art_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Order__Art_I__7FEAFD3E">
+          <End Type="Art_GalleryModel.Tbl_Art" Role="Tbl_Art" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_OrderDetail" Role="Tbl_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Art">
+              <PropertyRef Name="Art_Id" />
+            </Principal>
+            <Dependent Role="Tbl_OrderDetail">
+              <PropertyRef Name="Art_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Cart__User_I__7849DB76">
+          <End Type="Art_GalleryModel.Tbl_User" Role="Tbl_User" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_Cart" Role="Tbl_Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Cart">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Order__Order__7EF6D905">
+          <End Type="Art_GalleryModel.Tbl_Order" Role="Tbl_Order" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_OrderDetail" Role="Tbl_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Order">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Tbl_OrderDetail">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_CAR">
+          <Key>
+            <PropertyRef Name="CAR_Id" />
+          </Key>
+          <Property Name="CAR_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CAR_UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CAR_FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsAccepted" Type="Boolean" />
+          <Property Name="IsRejected" Type="Boolean" />
+          <Property Name="Artist_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CAR_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CAR_Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CAR_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CAR_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Artist_Id" Type="Int32" />
+          <NavigationProperty Name="Tbl_User" Relationship="Art_GalleryModel.FK__Tbl_CAR__Artist___65F62111" FromRole="Tbl_CAR" ToRole="Tbl_User" />
+        </EntityType>
+        <EntityType Name="Tbl_Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_UserRole" Relationship="Art_GalleryModel.FK__Tbl_UserR__RoleI__41B8C09B" FromRole="Tbl_Roles" ToRole="Tbl_UserRole" />
+        </EntityType>
+        <EntityType Name="Tbl_UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="Tbl_Roles" Relationship="Art_GalleryModel.FK__Tbl_UserR__RoleI__41B8C09B" FromRole="Tbl_UserRole" ToRole="Tbl_Roles" />
+          <NavigationProperty Name="Tbl_User" Relationship="Art_GalleryModel.FK__Tbl_UserR__User___1B9317B3" FromRole="Tbl_UserRole" ToRole="Tbl_User" />
+        </EntityType>
+        <Association Name="FK__Tbl_UserR__RoleI__41B8C09B">
+          <End Type="Art_GalleryModel.Tbl_Roles" Role="Tbl_Roles" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_UserRole" Role="Tbl_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tbl_UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_UserR__User___1B9317B3">
+          <End Type="Art_GalleryModel.Tbl_User" Role="Tbl_User" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_UserRole" Role="Tbl_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_UserRole">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_Admin">
+          <Key>
+            <PropertyRef Name="Admin_Id" />
+          </Key>
+          <Property Name="Admin_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Admin_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__Tbl_CAR__Artist___65F62111">
+          <End Type="Art_GalleryModel.Tbl_User" Role="Tbl_User" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_CAR" Role="Tbl_CAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_CAR">
+              <PropertyRef Name="Artist_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Art__User_Id__7908F585">
+          <End Type="Art_GalleryModel.Tbl_User" Role="Tbl_User" Multiplicity="0..1" />
+          <End Type="Art_GalleryModel.Tbl_Art" Role="Tbl_Art" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Tbl_Art">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_Feedback">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F_DYF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="F_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F_UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Report">
+          <Key>
+            <PropertyRef Name="R_Id" />
+          </Key>
+          <Property Name="R_Id" Type="Int32" Nullable="false" />
+          <Property Name="R_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="R_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="R_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="R_Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="R_File" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="R_Dsc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Art_GalleryModelStoreContainer" CdmEntityContainer="Art_GalleryEntities">
+          <EntitySetMapping Name="Tbl_Category">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_Category">
+              <MappingFragment StoreEntitySet="Tbl_Category">
+                <ScalarProperty Name="Category_Status" ColumnName="Category_Status" />
+                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+                <ScalarProperty Name="Category_Image" ColumnName="Category_Image" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_User">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_User">
+              <MappingFragment StoreEntitySet="Tbl_User">
+                <ScalarProperty Name="User_Phone" ColumnName="User_Phone" />
+                <ScalarProperty Name="User_LastName" ColumnName="User_LastName" />
+                <ScalarProperty Name="User_FirstName" ColumnName="User_FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="User_Email" ColumnName="User_Email" />
+                <ScalarProperty Name="User_Password" ColumnName="User_Password" />
+                <ScalarProperty Name="User_Image" ColumnName="User_Image" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Art">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_Art">
+              <MappingFragment StoreEntitySet="Tbl_Art">
+                <ScalarProperty Name="IsSold" ColumnName="IsSold" />
+                <ScalarProperty Name="Artist_Name" ColumnName="Artist_Name" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="IsFeatured" ColumnName="IsFeatured" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Art_Price" ColumnName="Art_Price" />
+                <ScalarProperty Name="Art_Image" ColumnName="Art_Image" />
+                <ScalarProperty Name="Art_Desc" ColumnName="Art_Desc" />
+                <ScalarProperty Name="Art_Name" ColumnName="Art_Name" />
+                <ScalarProperty Name="Art_Id" ColumnName="Art_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Wishlist">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_Wishlist">
+              <MappingFragment StoreEntitySet="Tbl_Wishlist">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Art_Id" ColumnName="Art_Id" />
+                <ScalarProperty Name="WishList_Id" ColumnName="WishList_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cart">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_Cart">
+              <MappingFragment StoreEntitySet="Tbl_Cart">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Cart_Count" ColumnName="Cart_Count" />
+                <ScalarProperty Name="Art_Id" ColumnName="Art_Id" />
+                <ScalarProperty Name="Cart_Id" ColumnName="Cart_Id" />
+                <ScalarProperty Name="Record_Id" ColumnName="Record_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Order">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_Order">
+              <MappingFragment StoreEntitySet="Tbl_Order">
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="ItemCount" ColumnName="ItemCount" />
+                <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+                <ScalarProperty Name="Order_Total" ColumnName="Order_Total" />
+                <ScalarProperty Name="Order_Email" ColumnName="Order_Email" />
+                <ScalarProperty Name="Order_Phone" ColumnName="Order_Phone" />
+                <ScalarProperty Name="Order_Country" ColumnName="Order_Country" />
+                <ScalarProperty Name="Order_PostalCode" ColumnName="Order_PostalCode" />
+                <ScalarProperty Name="Order_State" ColumnName="Order_State" />
+                <ScalarProperty Name="Order_City" ColumnName="Order_City" />
+                <ScalarProperty Name="Order_Address" ColumnName="Order_Address" />
+                <ScalarProperty Name="Order_LastName" ColumnName="Order_LastName" />
+                <ScalarProperty Name="Order_FirstName" ColumnName="Order_FirstName" />
+                <ScalarProperty Name="Order_Username" ColumnName="Order_Username" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_OrderDetail">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_OrderDetail">
+              <MappingFragment StoreEntitySet="Tbl_OrderDetail">
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Art_Id" ColumnName="Art_Id" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="OrderDetail_Id" ColumnName="OrderDetail_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_CAR">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_CAR">
+              <MappingFragment StoreEntitySet="Tbl_CAR">
+                <ScalarProperty Name="Artist_Id" ColumnName="Artist_Id" />
+                <ScalarProperty Name="CAR_Phone" ColumnName="CAR_Phone" />
+                <ScalarProperty Name="CAR_Email" ColumnName="CAR_Email" />
+                <ScalarProperty Name="CAR_Desc" ColumnName="CAR_Desc" />
+                <ScalarProperty Name="CAR_Image" ColumnName="CAR_Image" />
+                <ScalarProperty Name="Artist_Name" ColumnName="Artist_Name" />
+                <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />
+                <ScalarProperty Name="IsAccepted" ColumnName="IsAccepted" />
+                <ScalarProperty Name="CAR_FullName" ColumnName="CAR_FullName" />
+                <ScalarProperty Name="CAR_UserName" ColumnName="CAR_UserName" />
+                <ScalarProperty Name="CAR_Id" ColumnName="CAR_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Roles">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_Roles">
+              <MappingFragment StoreEntitySet="Tbl_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_UserRole">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_UserRole">
+              <MappingFragment StoreEntitySet="Tbl_UserRole">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Admin">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_Admin">
+              <MappingFragment StoreEntitySet="Tbl_Admin">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Admin_Password" ColumnName="Admin_Password" />
+                <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Feedback">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_Feedback">
+              <MappingFragment StoreEntitySet="Tbl_Feedback">
+                <ScalarProperty Name="F_UserName" ColumnName="F_UserName" />
+                <ScalarProperty Name="F_Email" ColumnName="F_Email" />
+                <ScalarProperty Name="F_Phone" ColumnName="F_Phone" />
+                <ScalarProperty Name="F_LastName" ColumnName="F_LastName" />
+                <ScalarProperty Name="F_FirstName" ColumnName="F_FirstName" />
+                <ScalarProperty Name="F_DYF" ColumnName="F_DYF" />
+                <ScalarProperty Name="F_Type" ColumnName="F_Type" />
+                <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Report">
+            <EntityTypeMapping TypeName="Art_GalleryModel.Tbl_Report">
+              <MappingFragment StoreEntitySet="Tbl_Report">
+                <ScalarProperty Name="R_Dsc" ColumnName="R_Dsc" />
+                <ScalarProperty Name="R_File" ColumnName="R_File" />
+                <ScalarProperty Name="R_Subject" ColumnName="R_Subject" />
+                <ScalarProperty Name="R_Email" ColumnName="R_Email" />
+                <ScalarProperty Name="R_Phone" ColumnName="R_Phone" />
+                <ScalarProperty Name="R_Name" ColumnName="R_Name" />
+                <ScalarProperty Name="R_Id" ColumnName="R_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

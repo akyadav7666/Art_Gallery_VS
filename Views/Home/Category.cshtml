@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Art_Gallery.Models.Tbl_Category>
+@using Art_Gallery.Models;
+@{
+    ViewBag.Title = "Category";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header heading">
+            <h2 class="w3 w3-hover-border-black">Categories</h2>
+        </div>
+    </div>
+</div>
+@using (@Html.BeginForm())
+{
+    <span class=" " style="width:200px"> @Html.TextBox("search")</span>
+    <input type="submit" value="search" class="btn btn-dark btn-rounded"/>
+}
+<hr />
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-lg-4 mb-4">
+
+            <div class="" style="padding:15px">
+                @if (item.Category_Id >= 0)
+                {
+                    using (Html.BeginForm("CategoryArts", "Home", new { id = item.Category_Id }, FormMethod.Post))
+                    {
+                        <div class="view zoom brighten z-depth-2  img-rounded" style="width:300px">
+
+                            <img class="img-fluid img-rounded" title="Click to View "
+                                 style="cursor:pointer;height:225px;width:300px;"
+                                 src="@Url.Content(item.Category_Image)" />
+                            <a href="@Url.Action( "CategoryArts", "Home" ,new { id = item.Category_Id })" class="w3-hover-text-white">
+                                <div class="mask card-mask-color  ">
+                                    <div class="d-flex align-items-end h-100 p-3">
+                                        <h5 class="mb-0"><strong class="w3-text-black">@item.Category_Name</strong></h5>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                    }
+
+                }
+            </div>
+
+
+
+        </div>
+
+    }
+</div>
+

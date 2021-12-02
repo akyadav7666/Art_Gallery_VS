@@ -1,0 +1,498 @@
+﻿@using Art_Gallery.Models;
+@model Art_Gallery.Models.Tbl_User
+@{
+    ViewBag.Title = "Profile";
+    var role = Session["Role"];
+    var art = "Artist";
+    var artgal = "Art_Gallery";
+    Art_GalleryEntities db = new Art_GalleryEntities();
+    var uid = Convert.ToInt32(Session["User_Id"]);
+    var uname = db.Tbl_User.Find(uid).UserName;
+    var arts = db.Tbl_Art.Where(a => a.User_Id == uid).ToList();
+    var car = db.Tbl_CAR.Where(a => a.Artist_Id == uid).ToList();
+
+
+}
+
+<h2>Profile</h2>
+<style>
+    body {
+        margin-top: 20px;
+        color: #1a202c;
+        text-align: left;
+        background-color: white;
+    }
+
+    .main-body {
+        padding: 15px;
+    }
+
+    .card {
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0,0,0,.125);
+        border-radius: .25rem;
+    }
+
+    .card-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1rem;
+    }
+
+    .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+
+        .gutters-sm > .col, .gutters-sm > [class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+    .mb-3, .my-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .bg-gray-300 {
+        background-color: #e2e8f0;
+    }
+
+    .h-100 {
+        height: 100% !important;
+    }
+
+    .shadow-none {
+        box-shadow: none !important;
+    }
+
+    *,
+    *:before,
+    *:after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 2rem 1.5rem;
+        font: 2rem/1.5 "PT Sans", Arial, sans-serif;
+        color: #5a5a5a;
+    }
+</style>
+<meta name="viewport" content="width=device-width" />
+@*<link href="~/Content/w3css/w3css.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/MyMainLayOut.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+
+<link href="~/Content/w3css.css" rel="stylesheet" />
+<link href="~/my/mdb-pro.min.css" rel="stylesheet" />
+<link href="~/my/mdb.ecommerce.min.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="main-body">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">User</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="d-flex flex-column align-items-center text-center">
+                            @if (Model.User_Image == null)
+                            {
+                                <img src="~/Image/User/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                            }
+                            else
+                            {
+
+                                <img src="@Url.Content(Model.User_Image)" alt="Admin" class="img-rounded" width="150" height="150" />
+                            }
+                            <div class="mt-3">
+                                <h4>@Model.User_FirstName @Model.User_LastName</h4>
+                                <p class="text-secondary mb-1">@role</p>
+
+
+                                @if (Session["Role"] == null)
+                                {
+                                    @Html.ActionLink("LogIn", "Account")
+
+                                }
+                                else
+                                {
+                                    if (Session["Role"].Equals(art) || Session["Role"].Equals(artgal))
+                                    {
+
+                                        @Html.ActionLink("Add Art", "addArt", "Manage", new { @class = "btn btn-dark" })
+                                    }
+
+
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.User_FirstName  @Model.User_LastName
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">User Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.UserName
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.User_Email
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Phone</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.User_Phone
+                            </div>
+                        </div>
+
+
+
+                        @*<div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Address</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    Bay Area, San Francisco, CA
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+
+            </div>
+            @using (Html.BeginForm("MyProfile", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="col-md-12 " style="margin-top:10px">
+                    <div class="card">
+                        <div class="card-body">
+
+
+
+                            <input type="file" name="file" id="file" class="pull-left " title="Image" width="200" />
+
+                            <input type="submit" value="Change Profile Picture" class="btn btn-dark pull-right" />
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+            @*@foreach(var item in order)
+                {
+                    <div class="col-md-12 " style="margin-top:10px">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="card-body table-responsive">
+
+                                    <table class="table table-hover">
+                                        <thead class="text-warning">
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Artist</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in order)
+                                            {
+                                                <tr>
+                                                    <td>@item.Art_Id</td>
+                                                    <td>@item.Art_Name</td>
+                                                    <td>$@item.Art_Price</td>
+                                                    <td>@item.Artist_Name</td>
+                                                </tr>
+
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                         </div>
+                     </div>
+
+                }*@
+
+
+            @foreach (var item in car)
+            {
+                <div class="col-md-12 " style="margin-top:10px">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="row mb-4" style="margin-top:30px">
+                                <div class="col-md-5 col-lg-3 col-xl-3">
+                                    <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+
+
+                                        <img class="img-rounded zoom z-depth-4" src="@Url.Content("~/Image/Art_Request/" + item.CAR_Image)" style="height:200px;width:265px" />
+
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-lg-9 col-xl-9">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <h4>@item.CAR_FullName</h4>
+                                                Username: <p class="mb-3 text-muted text-uppercase small">@item.CAR_UserName</p>
+                                                Phone:<p class="mb-2 text-muted text-uppercase small">@item.CAR_Phone</p>
+                                                Email:<p class="mb-3 text-muted text-uppercase small">@item.CAR_Email</p>
+                                                Description: <p class="mb-3 text-muted text-uppercase small">@item.CAR_Desc</p>
+
+
+                                                @if (item.IsAccepted == null && item.IsRejected == null)
+                                                {
+
+                                                    using (Html.BeginForm("IsAccepted", "Manage", new { id = item.CAR_Id, }, FormMethod.Post))
+                                                    {
+
+                                                        <button type="submit" class="pull-right btn btn-dark  waves-effect waves-light ">Accepted</button>
+                                                    }
+                                                    using (Html.BeginForm("IsRejected", "Manage", new { id = item.CAR_Id }, FormMethod.Post))
+                                                    {
+
+                                                        <button type="submit" class="pull-right btn btn-dark rounded waves-effect waves-light ">Rejected</button>
+                                                    }
+                                                }
+                                                @if (item.IsAccepted == true)
+                                                {<hr />
+                                                    <h4 class="text-center">User Request Is Accepted <span class="badge badge-success">Accepted</span></h4>
+                                                    using (Html.BeginForm("Cancel", "Manage", new { id = item.CAR_Id, }, FormMethod.Post))
+                                                    {
+
+                                                        <button type="submit" class="pull-right btn btn-dark btn-rounded waves-effect waves-light ">Cancel</button>
+                                                    }
+
+                                                }
+                                                @if (item.IsRejected == true)
+                                                {<hr />
+                                                    <h4 class="text-center">User Request Is Rejected<span class="badge badge-danger">Rejected</span></h4>
+                                                    using (Html.BeginForm("Cancel", "Manage", new { id = item.CAR_Id, }, FormMethod.Post))
+                                                    {
+
+                                                        <button type="submit" class="pull-right btn btn-dark  waves-effect waves-light ">Cancel</button>
+                                                    }
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-md-12 " style="margin-top:10px">
+                        <div class="card">
+                            <div class="card-body">
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Full Name</h6>
+
+                                        <h6 class=""></h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @item.CAR_FullName
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">User Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @item.CAR_UserName
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @item.CAR_Email
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Phone</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @item.CAR_Phone
+                                    </div>
+                                </div>
+                                <hr>
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Description</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @item.CAR_Desc
+                                    </div>
+                                </div>
+
+                                @if (item.IsAccepted == null && item.IsRejected == null)
+                                {
+
+                                    using (Html.BeginForm("IsAccepted", "Manage", new { id = item.CAR_Id, }, FormMethod.Post))
+                                    {
+
+                                        <button type="submit" class="pull-right btn btn-primary btn-sm mr-1 mb-2 waves-effect waves-light ">Accepted</button>
+                                    }
+                                    using (Html.BeginForm("IsRejected", "Manage", new { id = item.CAR_Id }, FormMethod.Post))
+                                    {
+
+                                        <button type="submit" class="pull-right btn btn-primary btn-sm mr-1 mb-2 waves-effect waves-light ">Rejected</button>
+                                    }
+                                }
+                                @if (item.IsAccepted == true)
+                                {<hr />
+                                    <h4 class="text-center">User Request Is Accepted <span class="badge badge-success">Accepted</span></h4>
+                                    using (Html.BeginForm("Cancel", "Manage", new { id = item.CAR_Id, }, FormMethod.Post))
+                                    {
+
+                                        <button type="submit" class="pull-right btn btn-primary btn-sm mr-1 mb-2 waves-effect waves-light ">Cancel</button>
+                                    }
+
+                                }
+                                @if (item.IsRejected == true)
+                                {<hr />
+                                    <h4 class="text-center">User Request Is Rejected<span class="badge badge-danger">Rejected</span></h4>
+                                    using (Html.BeginForm("Cancel", "Manage", new { id = item.CAR_Id, }, FormMethod.Post))
+                                    {
+
+                                        <button type="submit" class="pull-right btn btn-primary btn-sm mr-1 mb-2 waves-effect waves-light ">Cancel</button>
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>*@
+            }
+
+            @if (Session["Role"].Equals(art) || Session["Role"].Equals(artgal))
+            {
+
+                <div class="col-md-12" style="margin-top:10px">
+                    <div class="card">
+                        <div class="card-body">
+
+
+                            @foreach (var item in arts)
+                            {
+                                <div class="row mb-4">
+                                    <div class="col-md-5 col-lg-3 col-xl-3">
+                                        <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                                            @*<img class="img-fluid img-rounded view zoom " style="height:175px;width:150px"
+                                                src="~/Image/Art/mcgill-library-y4PqRPqSako-unsplash.jpg" alt="Sample">*@
+
+                                            <img class="img-rounded zoom z-depth-4" src="~/Image/Art/@item.Art_Image" style="height:175px;width:265px " />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 col-lg-9 col-xl-9">
+                                        <div>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <h4>@item.Art_Name</h4>
+                                                    <p class="mb-3 text-muted text-uppercase small">@item.Art_Desc</p>
+                                                    @*<p class="mb-2 text-muted text-uppercase small">Color: blue</p>*@
+                                                    <b class="mb-3 text-muted text-uppercase small">@item.Tbl_User.User_FirstName @item.Tbl_User.User_LastName</b>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+
+
+                                                </div>
+                                                <br />
+                                                <p class="mb-0"><span><strong id="summary">$@item.Art_Price</strong></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mb-4">
+
+                            }
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+
+
+
+        </div>
+    </div>
+
+</div>

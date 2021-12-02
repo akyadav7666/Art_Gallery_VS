@@ -1,0 +1,66 @@
+﻿@model Art_Gallery.Models.Tbl_Report
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tbl_Report</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.R_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.R_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.R_Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.R_Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.R_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.R_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.R_Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.R_Subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.R_File)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.R_File)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.R_Dsc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.R_Dsc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.R_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

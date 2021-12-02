@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Art_Gallery.Models.Tbl_Art>
+
+@{
+    ViewBag.Title = "Art";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Arts</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Art
+            <a href="../Admin/AddArt" class="btn btn-info pull-right fa fa-plus">Add New</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Art Name</th>
+                            <th>Art Image</th>
+                            <th>Price</th>
+                            <th>IsActive</th>
+                            <th>Created Date</th>
+                            <th>Modified Date</th>
+                            <th>Category Name</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    @{ var counter = 0;}
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            counter = counter + 1;
+
+                            <tr>
+                                <td>@counter</td>
+                                <td>@item.Art_Name</td>
+                                <td><img src="@Url.Content("~/Image/Art/"+item.Art_Image)" style="height:100px;width:100px;" /></td>
+                                <td>@item.Art_Price</td>
+                                <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
+                                <td>@item.CreatedDate</td>
+                                <td>@item.ModifiedDate</td>
+                                <td>@item.Tbl_Category.Category_Name</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "EditArt", new { id = item.Art_Id, @class = "fa fa-user-edit" }) |
+                                    @Html.ActionLink("Delete", "DeleteArt", new { id = item.Art_Id })
+                                </td>
+
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th class=" ">Sr. No.</th>
+                            <th>Art Name</th>
+                            <th>Art Image</th>
+                            <th>Price</th>
+                            <th>IsActive</th>
+                            <th>Created Date</th>
+                            <th>Modified Date</th>
+                            <th>Category Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+

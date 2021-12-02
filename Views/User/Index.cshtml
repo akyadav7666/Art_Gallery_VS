@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Art_Gallery.Models.Tbl_User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Users</h2>
+
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">User</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Feedback
+            <a href="../User/Create" class="btn btn-info pull-right fa fa-plus">Add New</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+
+                            <th>Username</th>
+                            
+                            <th>Full Name</th>
+                     
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Image</th>
+                            <th>Active</th>
+                            <th>Password</th>
+
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    @{ var counter = 0;}
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            counter = counter + 1;
+
+                            <tr>
+                                <td>@counter</td>
+                                <td>@item.UserName</td>
+                                <td>@item.User_FirstName  @item.User_LastName</td>
+                                <td>@item.User_Phone</td>
+                                <td>@item.User_Email</td>
+                                <td><img src="@Url.Content(item.User_Image)" style="height:100px;width:100px;" /></td>
+
+                                <td>@item.IsActive</td>
+
+                                <td>@item.User_Password</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.User_Id, @class = "fa fa-user-edit" }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.User_Id })
+                                </td>
+
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>Sr. No.</th>
+
+                            <th>Username</th>
+
+                            <th>Full Name</th>
+
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Image</th>
+                            <th>Active</th>
+                            <th>Password</th>
+
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

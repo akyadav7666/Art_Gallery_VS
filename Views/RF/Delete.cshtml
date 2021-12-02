@@ -1,0 +1,82 @@
+﻿@model Art_Gallery.Models.Tbl_Feedback
+
+@{
+    ViewBag.Title = "Delete";
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete FeedBack</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal" style="padding-left:20px">
+        <dt>
+            @Html.DisplayName("Feedback Type")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Description Of Feedback")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_DYF)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("First Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Last Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Phone")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Email")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("UserName")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_UserName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

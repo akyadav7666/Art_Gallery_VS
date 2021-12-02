@@ -1,0 +1,230 @@
+﻿
+@model Art_Gallery.Models.Home.HomeIndexViewModel
+@using Art_Gallery.Models
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Home Page";
+
+    Art_GalleryEntities ctx = new Art_GalleryEntities();
+    var uid = Convert.ToInt32(Session["User_Id"]);
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    @*<link href="~/my/all.css" rel="stylesheet" />*@
+    <link href="~/Content/w3css.css" rel="stylesheet" />
+    <link href="~/my/mdb-pro.min.css" rel="stylesheet" />
+    <link href="~/my/mdb.ecommerce.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div id="themeSlider" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#themeSlider" data-slide-to="0" class="active"></li>
+            <li data-target="#themeSlider" data-slide-to="1"></li>
+            <li data-target="#themeSlider" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active img-fluid">
+                <div class="imgOverlay"></div>
+                <img class="d-block w-100 img-fluid" style="height:450px;" src="~/Image/Slide/img1.jpg" alt="First slide">
+                <div class="carousel-caption">
+                    <h3>New</h3>
+                </div>
+            </div>
+            <div class="item img-fluid">
+                <div class="imgOverlay"></div>
+                <img class="img-fluid" style="height:450px;width:100%" src="~/Image/Slide/img2.jpg" alt="Second slide">
+                <div class="carousel-caption">
+                    <h3>Collections</h3>
+
+                </div>
+            </div>
+            <div class="item img-fluid">
+                <div class="imgOverlay"></div>
+                <img class="img-fluid" style="height:450px;width:100%" src="~/Image/Slide/img3.jpg" alt="Third slide">
+                <div class="carousel-caption">
+                    <h3>Popular</h3>
+
+                </div>
+            </div>
+        </div>
+        <a class="left carousel-control" href="#themeSlider" data-slide="prev">
+            <span class="fa fa-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#themeSlider" data-slide="next">
+            <span class="fa fa-chevron-right"></span>
+        </a>
+
+    </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header heading">
+                    <h2 class="w3 w3-hover-border-black">Categories</h2>
+                    <p> @Html.ActionLink("Show All Category", "Category", "Home")</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            @foreach (var item in Model.Tbl_Category)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+
+                    <div class="" style="padding:15px">
+                        @if (item.Category_Id >= 0)
+                        {
+                            using (Html.BeginForm("CategoryArts", "Home", new { id = item.Category_Id }, FormMethod.Post))
+                            {
+                                <div class="view zoom brighten z-depth-2  img-rounded" style="width:300px">
+
+                                    <img class="img-fluid img-rounded" title="Click to View "
+                                         style="cursor:pointer;height:225px;width:300px;"
+                                         src="@Url.Content(item.Category_Image)" />
+                                    <a href="@Url.Action( "CategoryArts", "Home" ,new { id = item.Category_Id })" class="w3-hover-text-white">
+                                        <div class="mask card-mask-color  ">
+                                            <div class="d-flex align-items-end h-100 p-3">
+                                                <h5 class="mb-0"><strong class="w3-text-black">@item.Category_Name</strong></h5>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+                            }
+
+                        }
+                    </div>
+
+
+
+                </div>
+
+            }
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h2>Our Producrs  <small>trends products</small></h2>
+                    <p> @Html.ActionLink("Show All Arts", "Art", "Home")</p>
+                </div>
+            </div>
+        </div>
+        <div class="row product-container">
+
+
+            @foreach (var item in Model.Tbl_Art)
+            {
+                if (item.IsFeatured == true)
+                {
+
+                    <div class="col-md-3 col-sm-3 col-xs-6" style="margin:0px">
+                        <div class="product-item" style="height:450px">
+
+                            @*<img class="img-responsive " title="Click to View Product detail"
+                                style="cursor:pointer;height:300px;width:100%"
+                                src="~/Image/Art/@item.Art_Image" />*@
+
+
+                            <div class="view zoom brighten z-depth-2  img-rounded" style="">
+                                <img class="img-fluid img-rounded" title="Click to View Product detail"
+                                     style="cursor:pointer;height:225px;width:275px"
+                                     src="~/Image/Art/@item.Art_Image" />
+
+
+                            </div>
+                            <div class="caption" style="text-align:center">
+                                <h5>@item.Art_Name</h5>
+                                <b class="mb-3 text-muted text-uppercase small">@item.Artist_Name</b>
+                                @*@if (item.User_Id != null)
+                                    {
+                                    <b class="mb-3 text-muted text-uppercase small">@item.Tbl_User.User_FirstName @item.Tbl_User.User_LastName</b>
+                                    }*@
+
+
+                                <p class="product-item-price slider-price">$@item.Art_Price.00</p>
+                                <p class="pull-left">
+                                    @if (item.Art_Id >= 0)
+                                    {
+                                        using (Html.BeginForm("AddToWishList", "Home", new { id = item.Art_Id, url = "Index" }, FormMethod.Post))
+                                        {
+                                            if (ctx.Tbl_Wishlist.Where(ac => ac.User_Id == uid)
+                                                .Any(ac => ac.Art_Id == item.Art_Id))
+                                            {
+                                                <button type="submit" class="btn btn-danger  btn-sm px-3 mb-2 material-tooltip-main waves-effect waves-light  pull-left"><b class="glyphicon glyphicon-heart   "></b></button>
+
+                                            }
+                                            else
+                                            {
+
+                                                <button type="submit" class="btn btn-danger  btn-sm px-3 mb-2 material-tooltip-main waves-effect waves-light  pull-left"><b class="glyphicon glyphicon-heart-empty  "></b></button>
+
+                                            }
+
+
+
+
+                                        }
+
+                                    }
+                                </p>
+
+                                @if (item.IsSold == false || item.IsSold==null)
+                                {
+                                    using (Html.BeginForm("AddToCart", "ShoppingCart", new { id = item.Art_Id }, FormMethod.Post))
+                                    {
+
+                                        <button type="submit" class="pull-right btn btn-primary btn-sm mr-1 mb-2 waves-effect waves-light " style="width:100%">Add To Cart&nbsp;&nbsp;<b class=" fa fa-shopping-cart  "></b></button>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <span class="btn btn-primary w3-sans-serif btn-sm mr-1 mb-2 waves-effect waves-light" style="width:100%">Sold</span>
+                                }
+
+                                <div class="product-item-badge">
+                                    @if (item.IsSold == true)
+                                    {
+                                        <p>Sold</p>
+
+                                    }
+                                    else
+                                    {
+                                        <p>New</p>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+                }
+            }
+        </div>
+
+
+
+        @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })*@
+
+
+    </body>
+</html>

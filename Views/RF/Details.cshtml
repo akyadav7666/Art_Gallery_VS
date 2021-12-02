@@ -1,0 +1,74 @@
+﻿@model Art_Gallery.Models.Tbl_Feedback
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tbl_Feedback</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_DYF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_DYF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.F_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
